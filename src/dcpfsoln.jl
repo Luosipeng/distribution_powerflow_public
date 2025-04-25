@@ -14,7 +14,8 @@ function dcpfsoln(baseMVA::Float64, bus0::Matrix{Float64}, gen0::Matrix{Float64}
       COST, MU_PMAX, MU_PMIN, MU_QMAX, MU_QMIN, GEN_AREA) = idx_gen();
     (F_BUS, T_BUS, BR_R, BR_X, BR_B, RATE_A, RATE_B, RATE_C, TAP, SHIFT, BR_STATUS, ANGMIN,
      ANGMAX, DICTKEY, PF, QF, PT, QT, MU_SF, MU_ST, MU_ANGMIN, MU_ANGMAX, LAMBDA, SW_TIME, RP_TIME, BR_TYPE, BR_AREA) = idx_brch()
-    (LOAD_I,LOAD_CND,LOAD_STATUS,LOAD_PD,LOAD_QD,LOADZ_PERCENT,LOADI_PERCENT,LOADP_PERCENT)=idx_ld()
+    (LOAD_I,LOAD_CND,LOAD_STATUS,LOAD_PD,LOAD_QD,LOADZ_PERCENT,
+    LOADI_PERCENT,LOADP_PERCENT)=idx_ld()
     
     # Initialize return values
     bus = bus0

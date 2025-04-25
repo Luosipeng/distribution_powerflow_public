@@ -18,7 +18,7 @@ function process_branches_data(cable_data::DataFrame, transline_data::DataFrame,
     if !isempty(transformer_three_data)
         branch_trans_three, bus, dict_bus = process_three_winding_transformer(transformer_three_data, bus, baseMVA, baseKV, dict_bus)
     else
-        branch_trans_three=[]
+        branch_trans_three=zeros(0,14)
     end
     # --- 处理线缆数据 ---
     if size(cable_data, 1) > 0
@@ -187,7 +187,7 @@ function process_branches_data(cable_data::DataFrame, transline_data::DataFrame,
         end
     end
     # --- Combine all branches ---
-    branch = [branch_cable; branch_transline;branch_impedance; branch_transformer]
+    branch = [branch_cable; branch_transline;branch_impedance; branch_transformer; branch_trans_three]
 
     # --- Topology reconstruction ---
     # 处理HVCB数据

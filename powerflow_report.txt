@@ -1,10 +1,10 @@
-JUPOWER Version 0.01, 11-Apr-2025
+JUPOWER Version 0.01, 25-Apr-2025
 Power Flow -- AC-polar-power formulation
 
 Newton's method converged in 4 iterations.
 PF successful
 
-Converged in 11.396000146865845 seconds
+Converged in 7.09499979019165 seconds
 ================================================================================
 |     System Summary                                                           |
 ================================================================================

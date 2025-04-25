@@ -2,9 +2,9 @@
 function makeYbus(baseMVA, bus, branch)
     ## define named indices into bus, branch matrices
     (PQ, PV, REF, NONE, BUS_I, BUS_TYPE, PD, QD, GS, BS, BUS_AREA, VM,VA, 
-    BASE_KV, ZONE, VMAX, VMIN, LAM_P, LAM_Q, MU_VMAX, MU_VMIN, PER_CONSUMER) = idx_bus();
+    BASE_KV, ZONE, VMAX, VMIN, LAM_P, LAM_Q, MU_VMAX, MU_VMIN, PER_CONSUMER) = PowerFlow.idx_bus();
     (F_BUS, T_BUS, BR_R, BR_X, BR_B, RATE_A, RATE_B, RATE_C, TAP, SHIFT, BR_STATUS, ANGMIN,
-    ANGMAX, DICTKEY, PF, QF, PT, QT, MU_SF, MU_ST, MU_ANGMIN, MU_ANGMAX, LAMBDA, SW_TIME, RP_TIME, BR_TYPE, BR_AREA) = idx_brch()
+    ANGMAX, DICTKEY, PF, QF, PT, QT, MU_SF, MU_ST, MU_ANGMIN, MU_ANGMAX, LAMBDA, SW_TIME, RP_TIME, BR_TYPE, BR_AREA) = PowerFlow.idx_brch()
 
     # constants
     nb = size(bus, 1)          # number of buses
@@ -15,9 +15,9 @@ function makeYbus(baseMVA, bus, branch)
         error("makeYbus: buses must be numbered consecutively in bus matrix; use ext2int() to convert to internal ordering")
     end
     # for each branch, compute the elements of the branch admittance matrix where
-    stat = branch[:, BR_STATUS]                    # ones at in-service branches
-    Ys = stat ./ (branch[:, BR_R] .+ 1im * branch[:, BR_X])  # series admittance
-    Bc = stat .* branch[:, BR_B]                           # line charging susceptance
+    Stat = branch[:, BR_STATUS]                    # ones at in-service branches
+    Ys = Stat ./ (branch[:, BR_R] .+ 1im * branch[:, BR_X])  # series admittance
+    Bc = Stat .* branch[:, BR_B]                           # line charging susceptance
     tap = ones(nl,1)                              # default tap ratio = 1
     i = findall(branch[:, TAP] .!= 0)                       # indices of non-zero tap ratios
     tap[i] = branch[i, TAP]                        # assign non-zero tap ratios
@@ -45,3 +45,26 @@ function makeYbus(baseMVA, bus, branch)
 
     return Ybus, Yf, Yt
 end
+
+# function  branch_vectors(branch, nl)
+#     (PQ, PV, REF, NONE, BUS_I, BUS_TYPE, PD, QD, GS, BS, BUS_AREA, VM,VA, 
+#     BASE_KV, ZONE, VMAX, VMIN, LAM_P, LAM_Q, MU_VMAX, MU_VMIN, PER_CONSUMER) = PowerFlow.idx_bus();
+#     (F_BUS, T_BUS, BR_R, BR_X, BR_B, RATE_A, RATE_B, RATE_C, TAP, SHIFT, BR_STATUS, ANGMIN,
+#     ANGMAX, DICTKEY, PF, QF, PT, QT, MU_SF, MU_ST, MU_ANGMIN, MU_ANGMAX, LAMBDA, SW_TIME, RP_TIME, BR_TYPE, BR_AREA) = PowerFlow.idx_brch()
+    
+#     Stat = branch[:, BR_STATUS]                    # ones at in-service branches
+#     Ysf = Stat ./ (branch[:, BR_R] .+ 1im * branch[:, BR_X])  # series admittance
+#     Yst = Ysf
+#     Bcf = Stat.* branch[:, BR_B] 
+#     Bct = Bcf
+#     tap = ones(nl,1)                              # default tap ratio = 1
+#     i = findall(branch[:, TAP] .!= 0)                       # indices of non-zero tap ratios
+#     tap[i] = real.(branch[i, TAP])                        # assign non-zero tap ratios
+#     tap = tap .* exp.((1im * pi / 180) .* branch[:, SHIFT]) # add phase shifters
+#     Ytt = Yst + Bct / 2
+#     Yft = (Ysf+ Bcf/2) ./ (tap .* conj.(tap))
+#     Yft = - Ysf ./ conj(tap)
+#     Ytf = - Yst ./ tap
+
+#     return Ytt, Yff, Yft, Ytf
+# end

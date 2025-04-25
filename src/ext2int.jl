@@ -10,8 +10,15 @@ function ext2int(bus::Matrix{Float64}, gen::Matrix{Float64}, branch::Matrix{Floa
          PC2, QC1MIN, QC1MAX, QC2MIN, QC2MAX, RAMP_AGC, RAMP_10, RAMP_30, 
          RAMP_Q, APF, PW_LINEAR, POLYNOMIAL, MODEL, STARTUP, SHUTDOWN, NCOST,
           COST, MU_PMAX, MU_PMIN, MU_QMAX, MU_QMIN,GEN_AREA) = idx_gen();
-          (LOAD_I,LOAD_CND,LOAD_STATUS,LOAD_PD,LOAD_QD,LOADZ_PERCENT,LOADI_PERCENT,LOADP_PERCENT)=idx_ld()
-    #TODO: determine which buses, branches, gens are connected & in-service
+          (LOAD_I,LOAD_CND,LOAD_STATUS,LOAD_PD,LOAD_QD,LOADZ_PERCENT,
+          LOADI_PERCENT,LOADP_PERCENT)=idx_ld()
+    # Find the in_service buses, generators, branches and loads  
+    gen  = gen[gen[:, GEN_STATUS] .!= 0, :]
+    bus  = bus[bus[:, BUS_TYPE] .!= 0, :]
+    load = load[load[:, LOAD_STATUS] .!= 0, :]
+    branch = branch[branch[:, BR_STATUS] .!= 0, :]
+
+    # remove zero load and generation
     gen = gen[gen[:, 8] .!= 0, :]
     branch = branch[branch[:, 11] .!= 0, :]
     # create map of external bus numbers to bus indices

@@ -22,6 +22,7 @@ function options(; kwargs...)
         "DC_PREPROCESS" => 0,
         "NR_ALG" => "gmres",
         "GPU_ACCELERATION" => 0,
+        "baseMVA" => 100.0,
     )
     OPF = Dict(
         # Optimal power flow options

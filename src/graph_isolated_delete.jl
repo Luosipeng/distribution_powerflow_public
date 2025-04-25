@@ -173,7 +173,8 @@ function remove_isolated_HVCB(HVCB_data::DataFrame,
 end
 
 function remove_isolated_load(load::Matrix{Float64}, isolated_buses::Set{Int})::Matrix{Float64}
-    (LOAD_I,LOAD_CND,LOAD_STATUS,LOAD_PD,LOAD_QD,LOADZ_PERCENT,LOADI_PERCENT,LOADP_PERCENT)=idx_ld()
+    (LOAD_I,LOAD_CND,LOAD_STATUS,LOAD_PD,LOAD_QD,LOADZ_PERCENT,LOADI_PERCENT,
+    LOADP_PERCENT)=idx_ld()
     remaining_rows = findall(row -> !(Int(load[row, LOAD_CND]) in isolated_buses), 1:size(load, 1))
     return load[remaining_rows, :]
 end

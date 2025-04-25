@@ -31,7 +31,7 @@ function runpf(mpc, opt::Dict{String})
     branch = mpc["branch"];
     load = get(mpc, "load", nothing)
     if load === nothing || isempty(load)
-        load = zeros(size(bus, 1), 8)
+        load = zeros(size(bus, 1), 12)
         load[:, LOAD_I] = collect(1:size(bus, 1))
         load[:, LOAD_CND] = bus[:, BUS_I]
         load[:, LOAD_STATUS] .= 1
@@ -116,7 +116,6 @@ function runpf(mpc, opt::Dict{String})
                     V, success, iterations = PowerFlow.newtonpf_gpu(baseMVA, bus, gen, load, Ybus, V0, ref, pv, pq, opt["PF"]["PF_TOL"], opt["PF"]["PF_MAX_IT"], opt["PF"]["NR_ALG"]);
                 else
                     V, success, iterations,norm_history = PowerFlow.newtonpf(baseMVA, bus, gen, load, Ybus, V0, ref, pv, pq, opt["PF"]["PF_TOL"], opt["PF"]["PF_MAX_IT"], opt["PF"]["NR_ALG"]);
-                    PowerFlow.plot_norm_history(norm_history)
                 end
                 its += iterations;
             end

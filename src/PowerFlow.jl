@@ -50,6 +50,9 @@ module PowerFlow
     include(joinpath(@__DIR__,"int2ext.jl"))
     include(joinpath(@__DIR__,"runprepf.jl"))
     include(joinpath(@__DIR__,"dc_preprocess.jl"))
+    include(joinpath(@__DIR__,"build_branch.jl"))
+    include(joinpath(@__DIR__,"build_bus.jl"))
+    include(joinpath(@__DIR__,"build_gen.jl"))
     # include(joinpath(@__DIR__,"gpu_gmres.jl"))
     include(joinpath(@__DIR__,"extract_data.jl"))
     include(joinpath(@__DIR__,"reorganized_bus_data.jl"))
@@ -76,6 +79,7 @@ module PowerFlow
     include(joinpath(@__DIR__,"process_charger_data.jl"))
     include(joinpath(@__DIR__,"run_all_component_tests.jl"))
     include(joinpath(@__DIR__,"process_inverter.jl"))
+    include(joinpath(@__DIR__,"runupf.jl"))
     # ... 其他 models 目录下的文件 ...
     include(joinpath(dirname(@__DIR__), "models","bus_idx.jl"))
     include(joinpath(dirname(@__DIR__), "models","gen_idx.jl"))
@@ -100,6 +104,7 @@ module PowerFlow
     include(joinpath(dirname(@__DIR__), "test","dc_element_validate.jl"))
     include(joinpath(dirname(@__DIR__), "test","acdc_power_flow_compared.jl"))
     include(joinpath(dirname(@__DIR__), "test","ac_power_flow_compared.jl"))
+    include(joinpath(dirname(@__DIR__), "test","check_it.jl"))
     # include(joinpath(dirname(@__DIR__), "test","modelingexamine.jl"))
     include(joinpath(dirname(@__DIR__), "test","resultcompare.jl"))
     include(joinpath(dirname(@__DIR__), "test", "loadflow_result_ETAP.jl"))
@@ -107,6 +112,7 @@ module PowerFlow
     include(joinpath(dirname(@__DIR__), "test","acdccompare.jl"))
     # ... 其他 ios 目录下的文件 ...
     include(joinpath(dirname(@__DIR__), "ios","excel2jpc.jl"))
+    include(joinpath(dirname(@__DIR__), "ios","data_structure_template.jl"))
     # ... 其他 data 目录下的文件 ...
     include(joinpath(dirname(@__DIR__), "data","case3.jl"))
     include(joinpath(dirname(@__DIR__), "data","case33bw.jl"))

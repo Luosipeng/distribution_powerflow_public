@@ -43,14 +43,7 @@ function case9()
         9 4 0.01 0.085 0.176 250 250 250 0 0 1 -360 360
     ]
     
-    # generator cost data
-    # 1 startup shutdown n x1 y1 ... xn yn
-    # 2 startup shutdown n c(n-1) ... c0
-    # mpc["gencost"] = [
-    #     2 1500 0 3 0.11 5 150;
-    #     2 2000 0 3 0.085 1.2 600;
-    #     2 3000 0 3 0.1225 1 335
-    # ]
+
     
     return mpc
 end
