@@ -6,7 +6,7 @@ function process_load_data(Load_data::DataFrame, bus::Matrix{Float64}, dict_bus:
     BASE_KV, ZONE, VMAX, VMIN, LAM_P, LAM_Q, MU_VMAX, MU_VMIN, PER_CONSUMER) = PowerFlow.idx_bus();
     #创建负载矩阵
     Load_data=filter(row -> row[ConectedID] !== missing, Load_data)
-    load=zeros(size(Load_data,1),12)
+    load=zeros(size(Load_data,1),8)
     load[:,LOAD_I]=eachindex(load[:,LOAD_I])
     load[:,LOAD_CND]=map(x->dict_bus[x],Load_data[:,ConectedID])
     load[:,LOAD_STATUS]=(Load_data[:,load_inservice].=="true").+0
